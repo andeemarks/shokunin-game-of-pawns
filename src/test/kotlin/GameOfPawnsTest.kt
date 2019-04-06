@@ -19,7 +19,7 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardHas32Pieces() {
-        val board = GameOfPawns.generateBoard().populate()
+        val board = populate()
         assertEquals(32, board.flatten().count { square -> square != '.' })
     }
 }
