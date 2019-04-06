@@ -10,11 +10,16 @@ class GameOfPawnsTest {
 
     @Test
     fun generatedBoardSquaresAreCorrectlyInitialised() {
-        val grid = GameOfPawns.generateBoard()
-        grid.forEach { row ->
+        val board = GameOfPawns.generateBoard()
+        board.forEach { row ->
             assertEquals(8, row.size)
             row.forEach { square -> assertEquals('.', square) }
         }
     }
 
+    @Test
+    fun populatedBoardHas32Pieces() {
+        val board = GameOfPawns.generateBoard().populate()
+        assertEquals(32, board.flatten().count { square -> square != '.' })
+    }
 }
