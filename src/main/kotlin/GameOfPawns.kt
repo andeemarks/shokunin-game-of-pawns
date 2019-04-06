@@ -1,8 +1,8 @@
 class GameOfPawns {
 
     companion object {
-        fun generateGrid(): Array<Array<Char>> {
-            return arrayOf()
+        fun generateBoard(): Array<Array<Char>> {
+            return Array(8) { Array(8) {'.'}}
         }
     }
 }

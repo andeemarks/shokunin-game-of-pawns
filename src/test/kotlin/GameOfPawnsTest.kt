@@ -1,14 +1,20 @@
 import org.junit.Test
-import org.junit.Ignore
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 class GameOfPawnsTest {
 
     @Test
-    fun generatedGridHasCorrectNumberOfRows() {
-        assertEquals(8, GameOfPawns.generateGrid().size)
+    fun generatedBoardHasCorrectNumberOfRows() {
+        assertEquals(8, GameOfPawns.generateBoard().size)
+    }
+
+    @Test
+    fun generatedBoardSquaresAreCorrectlyInitialised() {
+        val grid = GameOfPawns.generateBoard()
+        grid.forEach { row ->
+            assertEquals(8, row.size)
+            row.forEach { square -> assertEquals('.', square) }
+        }
     }
 
 }
