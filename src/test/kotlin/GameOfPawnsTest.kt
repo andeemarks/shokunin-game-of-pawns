@@ -5,41 +5,41 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardHasCorrectNumberOfRows() {
-        assertEquals(8, populate().size)
+        assertEquals(8, ChessBoard().board.size)
     }
 
     @Test
     fun populatedBoardOnlyHas32Pieces() {
-        val board = populate()
-        assertEquals(32, board.flatten().count { square -> square != '.' })
+        val board = ChessBoard()
+        assertEquals(32, board.squares().count { square -> square != '.' })
     }
 
     @Test
     fun populatedBoardIncludesAllWhitePieces() {
-        val board = populate()
-        val squares = board.flatten().sorted().joinToString("")
+        val board = ChessBoard()
+        val squares = board.squares().sorted().joinToString("")
 
         assertTrue(squares.contains("BBKNNPPPPPPPPQRR"))
     }
 
     @Test
     fun populatedBoardIncludesAllBlackPieces() {
-        val board = populate()
-        val squares = board.flatten().sorted().joinToString("")
+        val board = ChessBoard()
+        val squares = board.squares().sorted().joinToString("")
 
         assertTrue(squares.contains("bbknnppppppppqrr"))
     }
 
     @Test
     fun boardPopulationChangesEachTime() {
-        assertNotSame(populate(), populate())
+        assertNotSame(ChessBoard(), ChessBoard())
     }
 
     @Test
     fun populatedBoardHasNoPawnsInPromotionSquare() {
-        val whitePromotionRow = populate().whitePromotionRow()
+        val whitePromotionRow = ChessBoard().whitePromotionRow()
         assertFalse(whitePromotionRow.contains('P'), "Found white pawn in promotion square: $whitePromotionRow")
-        val blackPromotionRow = populate().blackPromotionRow()
+        val blackPromotionRow = ChessBoard().blackPromotionRow()
         assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
 
     }
