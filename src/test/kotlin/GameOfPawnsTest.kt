@@ -6,17 +6,8 @@ import kotlin.test.assertTrue
 class GameOfPawnsTest {
 
     @Test
-    fun generatedBoardHasCorrectNumberOfRows() {
-        assertEquals(8, GameOfPawns.generateBoard().size)
-    }
-
-    @Test
-    fun generatedBoardSquaresAreCorrectlyInitialised() {
-        val board = GameOfPawns.generateBoard()
-        board.forEach { row ->
-            assertEquals(8, row.size)
-            row.forEach { square -> assertEquals('.', square) }
-        }
+    fun populatedBoardHasCorrectNumberOfRows() {
+        assertEquals(8, populate().size)
     }
 
     @Test
