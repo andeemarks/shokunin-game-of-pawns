@@ -19,7 +19,7 @@ class GameOfPawnsTest {
         val board = ChessBoard()
         val squares = board.squares().sorted().joinToString("")
 
-        assertTrue(squares.contains("BBKNNPPPPPPPPQRR"))
+        assertTrue(squares.contains(WHITE_PIECES.toCharArray().sorted().joinToString("")))
     }
 
     @Test
@@ -27,7 +27,7 @@ class GameOfPawnsTest {
         val board = ChessBoard()
         val squares = board.squares().sorted().joinToString("")
 
-        assertTrue(squares.contains("bbknnppppppppqrr"))
+        assertTrue(squares.contains(BLACK_PIECES.toCharArray().sorted().joinToString("")))
     }
 
     @Test
