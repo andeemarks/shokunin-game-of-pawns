@@ -1,7 +1,5 @@
 import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class GameOfPawnsTest {
 
@@ -34,9 +32,15 @@ class GameOfPawnsTest {
 
     @Test
     fun boardPopulationChangesEachTime() {
-        val squares1 = populate().flatten().joinToString("")
-        val squares2 = populate().flatten().joinToString("")
+        assertNotSame(populate(), populate())
+    }
 
-        assertNotEquals(squares1, squares2)
+    @Test
+    fun populatedBoardHasNoPawnsInPromotionSquare() {
+        val whitePromotionSquare = populate()[0]
+        assertFalse(whitePromotionSquare.contains('P'), "Found white pawn in promotion square: $whitePromotionSquare")
+        val blackPromotionSquare = populate()[7]
+        assertFalse(blackPromotionSquare.contains('p'), "Found black pawn in promotion square: $blackPromotionSquare")
+
     }
 }
