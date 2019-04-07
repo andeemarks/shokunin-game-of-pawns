@@ -1,14 +1,3 @@
-class GameOfPawns {
-
-    companion object {
-        fun generateBoard(): Array<Array<Char>> {
-            return Array(ROW_SIZE) { Array(ROW_SIZE) {'.'}}
-        }
-    }
-
-
-}
-
 private const val PIECES = "RNBQKBNR"
 private const val ROW_SIZE = 8
 
