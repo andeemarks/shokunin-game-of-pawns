@@ -37,10 +37,10 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardHasNoPawnsInPromotionSquare() {
-        val whitePromotionSquare = populate()[0]
-        assertFalse(whitePromotionSquare.contains('P'), "Found white pawn in promotion square: $whitePromotionSquare")
-        val blackPromotionSquare = populate()[7]
-        assertFalse(blackPromotionSquare.contains('p'), "Found black pawn in promotion square: $blackPromotionSquare")
+        val whitePromotionRow = populate().whitePromotionRow()
+        assertFalse(whitePromotionRow.contains('P'), "Found white pawn in promotion square: $whitePromotionRow")
+        val blackPromotionRow = populate().blackPromotionRow()
+        assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
 
     }
 }

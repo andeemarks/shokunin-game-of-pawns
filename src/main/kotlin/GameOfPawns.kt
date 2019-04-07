@@ -12,3 +12,11 @@ fun populate(): List<List<Char>> {
 
     return "$WHITE_PAWNS$WHITE_PIECES$BLACK_PAWNS$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(ROW_SIZE)
 }
+
+fun List<List<Char>>.whitePromotionRow(): List<Char> {
+    return this[0]
+}
+
+fun List<List<Char>>.blackPromotionRow(): List<Char> {
+    return this[7]
+}
