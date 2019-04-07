@@ -24,7 +24,7 @@ private val EMPTY_SQUARES = ".".repeat(32)
 fun populate():  Array<Array<Char>>  {
     val board = Array(ROW_SIZE) { Array(ROW_SIZE) { '.'} }
 
-    val squares = "$WHITE_PAWNS$WHITE_PIECES$BLACK_PAWNS$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled(Random()).chunked(ROW_SIZE).toTypedArray()
+    val squares = "$WHITE_PAWNS$WHITE_PIECES$BLACK_PAWNS$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(ROW_SIZE).toTypedArray()
 
     board[0] = squares[0].toTypedArray()
     board[1] = squares[1].toTypedArray()
