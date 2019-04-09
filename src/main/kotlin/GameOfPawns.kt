@@ -2,12 +2,10 @@ private const val PIECES = "RNBQKBNR"
 private const val ROW_SIZE = 8
 
 private const val WHITE_PAWN = 'P'
-private val WHITE_PAWNS = WHITE_PAWN.toString().repeat(ROW_SIZE)
-val WHITE_PIECES = WHITE_PAWNS + PIECES
+val WHITE_PIECES = WHITE_PAWN.toString().repeat(ROW_SIZE) + PIECES
 
-private val BLACK_PAWN = WHITE_PAWN.toLowerCase()
-private val BLACK_PAWNS = BLACK_PAWN.toString().repeat(ROW_SIZE)
-val BLACK_PIECES = BLACK_PAWNS + PIECES.toLowerCase()
+private const val BLACK_PAWN = 'p'
+val BLACK_PIECES = BLACK_PAWN.toString().repeat(ROW_SIZE) + PIECES.toLowerCase()
 private const val EMPTY_SQUARE = '.'
 private val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
 
