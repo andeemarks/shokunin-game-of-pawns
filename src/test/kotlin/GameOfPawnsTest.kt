@@ -37,14 +37,14 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardHasNoWhitePawnsInPromotionSquare() {
-        val whitePromotionRow = ChessBoard().whitePromotionSquares()
+        val whitePromotionRow = ChessBoard().whitePromotionSquares(ChessBoard().board)
         assertFalse(whitePromotionRow.contains('P'), "Found white pawn in promotion square: $whitePromotionRow")
 
     }
 
     @Test
     fun populatedBoardHasNoBlackPawnsInPromotionSquare() {
-        val blackPromotionRow = ChessBoard().blackPromotionSquares()
+        val blackPromotionRow = ChessBoard().blackPromotionSquares(ChessBoard().board)
         assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
 
     }
