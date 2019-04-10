@@ -4,6 +4,8 @@ import kotlin.test.*
 class ChessBoardFormatterTest {
     val board = ChessBoard().board
 
+    private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
+
     @Test
     fun populatedBoardCanBeFENFormattedWithNumberOfRanks() {
         val fen = ChessBoardFormatter().asFEN(board)
@@ -23,8 +25,6 @@ class ChessBoardFormatterTest {
         assertEquals("8", ranks.split("/")[0])
         assertEquals("8", ranks.split("/")[3])
     }
-
-    private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
     @Test
     fun populatedBoardCanBeFENFormattedWithActiveColor() {

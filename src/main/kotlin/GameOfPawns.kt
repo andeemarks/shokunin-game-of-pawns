@@ -38,36 +38,14 @@ class ChessBoard {
         return squares
     }
 
-    private fun availableSquaresForWhitePawns(board: List<List<Char>>) : List<Pair<Int, Int>> {
-        return emptySquares(board).filter { square -> square.first != WHITE_PROMOTION_ROW }
-    }
+    private fun availableSquaresForWhitePawns(board: List<List<Char>>) = emptySquares(board).filter { square -> square.first != WHITE_PROMOTION_ROW }
+    private fun whitePawnsInPromotionSquares(board: List<List<Char>>) = whitePromotionSquares(board).mapIndexed { index, square -> if (square == WHITE_PAWN) Pair(WHITE_PROMOTION_ROW, index.rem(ROW_SIZE)) else null }.filterNotNull()
+    private fun blackPawnsInPromotionSquares(board: List<List<Char>>) = blackPromotionSquares(board).mapIndexed { index, square -> if (square == BLACK_PAWN) Pair(BLACK_PROMOTION_ROW, index.rem(ROW_SIZE)) else null }.filterNotNull()
+    private fun availableSquaresForBlackPawns(board: List<List<Char>>) = emptySquares(board).filter { square -> square.first != BLACK_PROMOTION_ROW }
 
-    private fun whitePawnsInPromotionSquares(board: List<List<Char>>) : List<Pair<Int, Int>> {
-        return whitePromotionSquares(board).mapIndexed { index, square -> if (square == WHITE_PAWN) Pair(WHITE_PROMOTION_ROW, index.rem(ROW_SIZE)) else null }.filterNotNull()
-    }
+    private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(ROW_SIZE), index.rem(ROW_SIZE)) else null }.filterNotNull()
 
-    private fun blackPawnsInPromotionSquares(board: List<List<Char>>) : List<Pair<Int, Int>> {
-        return blackPromotionSquares(board).mapIndexed { index, square -> if (square == BLACK_PAWN) Pair(BLACK_PROMOTION_ROW, index.rem(ROW_SIZE)) else null }.filterNotNull()
-    }
-
-    private fun availableSquaresForBlackPawns(board: List<List<Char>>) : List<Pair<Int, Int>> {
-        return emptySquares(board).filter { square -> square.first != BLACK_PROMOTION_ROW }
-    }
-
-    private fun emptySquares(board: List<List<Char>>): List<Pair<Int, Int>> {
-        return board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(ROW_SIZE), index.rem(ROW_SIZE)) else null }.filterNotNull()
-    }
-
-    fun squares(): List<Char> {
-        return board.flatten()
-    }
-
-    fun whitePromotionSquares(board: List<List<Char>>): List<Char> {
-        return board[WHITE_PROMOTION_ROW]
-    }
-
-    fun blackPromotionSquares(board: List<List<Char>>): List<Char> {
-        return board[BLACK_PROMOTION_ROW]
-    }
+    fun whitePromotionSquares(board: List<List<Char>>) = board[WHITE_PROMOTION_ROW]
+    fun blackPromotionSquares(board: List<List<Char>>)= board[BLACK_PROMOTION_ROW]
 }
 
