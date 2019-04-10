@@ -1,7 +1,7 @@
 import org.junit.Test
 import kotlin.test.*
 
-class GameOfPawnsTest {
+class ChessBoardFormatterTest {
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENPiecePlacement() {
