@@ -62,10 +62,6 @@ class ChessBoard {
         return board.flatten()
     }
 
-    fun asFEN(board: List<List<Char>>): String {
-        return "a b c d e f"
-    }
-
     fun whitePromotionSquares(board: List<List<Char>>): List<Char> {
         return board[WHITE_PROMOTION_ROW]
     }
@@ -73,4 +69,12 @@ class ChessBoard {
     fun blackPromotionSquares(board: List<List<Char>>): List<Char> {
         return board[BLACK_PROMOTION_ROW]
     }
+}
+
+class ChessBoardFormatter {
+
+    fun asFEN(board: List<List<Char>>): String {
+        return "1/2/3/4/5/6/7/8 w - - 0 1"
+    }
+
 }
