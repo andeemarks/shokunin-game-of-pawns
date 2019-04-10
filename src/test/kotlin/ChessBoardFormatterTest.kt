@@ -4,60 +4,60 @@ import kotlin.test.*
 class ChessBoardFormatterTest {
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNumberOfRanks() {
+    fun populatedBoardCanBeFENFormattedWithNumberOfRanks() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
-        val (pieces, _) = fen.split(" ")
-        assertEquals(8, pieces.split("/").size)
+        val ranks = fen.split(" ")[0]
+        assertEquals(8, ranks.split("/").size)
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndEmptyRank() {
+    fun populatedBoardCanBeFENFormattedWithEmptyRank() {
         val board = ChessBoard().board.toMutableList()
         board[0] = emptyRank()
         board[3] = emptyRank()
         val fen = ChessBoardFormatter().asFEN(board)
-        val (pieces, _) = fen.split(" ")
-        assertEquals("8", pieces.split("/")[0])
-        assertEquals("8", pieces.split("/")[3])
+        val ranks = fen.split(" ")[0]
+        assertEquals("8", ranks.split("/")[0])
+        assertEquals("8", ranks.split("/")[3])
     }
 
     private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENActiveColor() {
+    fun populatedBoardCanBeFENFormattedWithActiveColor() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
-        val (_, activeColor, _) = fen.split(" ")
+        val activeColor = fen.split(" ")[1]
         assertTrue(activeColor.contains(Regex("[wb]")), "$activeColor is not 'w' or 'b'")
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoCastlingRights() {
+    fun populatedBoardCanBeFENFormattedWithNoCastlingRights() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
-        val (_, _, castlingAvailability, _) = fen.split(" ")
+        val castlingAvailability = fen.split(" ")[2]
         assertEquals("-", castlingAvailability)
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoEnPassant() {
+    fun populatedBoardCanBeFENFormattedWithNoEnPassant() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
-        val (_, _, _, enPassant, _) = fen.split(" ")
+        val enPassant = fen.split(" ")[3]
         assertEquals("-", enPassant)
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoHalfmoveClock() {
+    fun populatedBoardCanBeFENFormattedWithNoHalfmoveClock() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
-        val (_, _, _, _, halfMoveClock) = fen.split(" ")
+        val halfMoveClock = fen.split(" ")[4]
         assertEquals("0", halfMoveClock)
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndFullmoveNumberReset() {
+    fun populatedBoardCanBeFENFormattedWithFullmoveNumberReset() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
         val fullmoveNumber = fen.split(" ")[5]
