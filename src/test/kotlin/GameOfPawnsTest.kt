@@ -48,4 +48,14 @@ class GameOfPawnsTest {
         assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
 
     }
+
+    @Test
+    fun populatedBoardCanBeFormattedAsValidFEN() {
+        val board = ChessBoard().board
+        val fen = ChessBoard().asFEN(board)
+        assertNotNull(fen)
+        var elements = fen.split(" ")
+        assertEquals(6, elements.size)
+
+    }
 }
