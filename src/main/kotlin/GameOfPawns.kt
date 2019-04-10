@@ -6,7 +6,7 @@ val WHITE_PIECES = WHITE_PAWN.toString().repeat(ROW_SIZE) + PIECES
 
 private const val BLACK_PAWN = 'p'
 val BLACK_PIECES = BLACK_PAWN.toString().repeat(ROW_SIZE) + PIECES.toLowerCase()
-private const val EMPTY_SQUARE = '.'
+const val EMPTY_SQUARE = '.'
 private val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
 
 private const val WHITE_PROMOTION_ROW = 0

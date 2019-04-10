@@ -4,12 +4,25 @@ import kotlin.test.*
 class ChessBoardFormatterTest {
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENPiecePlacement() {
+    fun populatedBoardCanBeFormattedWithValidFENAndNumberOfRanks() {
         val board = ChessBoard().board
         val fen = ChessBoardFormatter().asFEN(board)
         val (pieces, _) = fen.split(" ")
         assertEquals(8, pieces.split("/").size)
     }
+
+    @Test
+    fun populatedBoardCanBeFormattedWithValidFENAndEmptyRank() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = emptyRank()
+        board[3] = emptyRank()
+        val fen = ChessBoardFormatter().asFEN(board)
+        val (pieces, _) = fen.split(" ")
+        assertEquals("8", pieces.split("/")[0])
+        assertEquals("8", pieces.split("/")[3])
+    }
+
+    private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENActiveColor() {
