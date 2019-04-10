@@ -7,31 +7,31 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENPiecePlacement() {
-        val (pieces, _) = fen.split(" ")
+        val pieces = fen.split(" ")[0]
         assertEquals(8, pieces.split("/").size)
     }
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENActiveColor() {
-        val (_, activeColor, _) = fen.split(" ")
+        val activeColor = fen.split(" ")[1]
         assertTrue(activeColor.contains(Regex("[wb]")), "$activeColor is not 'w' or 'b'")
     }
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENAndNoCastlingRights() {
-        val (_, _, castlingAvailability, _) = fen.split(" ")
+        val castlingAvailability = fen.split(" ")[2]
         assertEquals("-", castlingAvailability)
     }
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENAndNoEnPassant() {
-        val (_, _, _, enPassant, _) = fen.split(" ")
+        val enPassant = fen.split(" ")[3]
         assertEquals("-", enPassant)
     }
 
     @Test
     fun populatedBoardCanBeFormattedWithValidFENAndNoHalfmoveClock() {
-        val (_, _, _, _, halfMoveClock) = fen.split(" ")
+        val halfMoveClock = fen.split(" ")[4]
         assertEquals("0", halfMoveClock)
     }
 
