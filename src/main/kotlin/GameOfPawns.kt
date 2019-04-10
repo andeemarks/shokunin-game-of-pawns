@@ -1,7 +1,7 @@
 private const val PIECES = "RNBQKBNR"
 private const val RANK_WIDTH = 8
 
-private const val WHITE_PAWN = 'P'
+const val WHITE_PAWN = 'P'
 val WHITE_PIECES = WHITE_PAWN.toString().repeat(RANK_WIDTH) + PIECES
 
 private const val BLACK_PAWN = 'p'

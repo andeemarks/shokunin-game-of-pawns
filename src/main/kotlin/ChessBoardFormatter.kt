@@ -9,7 +9,7 @@ class ChessBoardFormatter {
     }
 
     private fun rankToFen(rank: List<Char>): String {
-        return "1"
+        return "8"
     }
 
 }
