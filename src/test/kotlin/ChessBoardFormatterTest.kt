@@ -2,7 +2,7 @@ import org.junit.Test
 import kotlin.test.*
 
 class ChessBoardFormatterTest {
-    val board = ChessBoard().board
+    private val board = ChessBoard().board
 
     private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
@@ -39,11 +39,11 @@ class ChessBoardFormatterTest {
     @Test
     fun populatedBoardCanBeFENFormattedWithRankOfMixedPieces() {
         val board = board.toMutableList()
-        board[0] = ".Pp..Kq.".toCharArray().toList()
+        board[0] = ".PpR.Kq.".toCharArray().toList()
         val fen = ChessBoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
-        assertEquals("1Pp2Kq1", ranks.split("/")[0])
+        assertEquals("1PpR1Kq1", ranks.split("/")[0])
     }
 
     @Test

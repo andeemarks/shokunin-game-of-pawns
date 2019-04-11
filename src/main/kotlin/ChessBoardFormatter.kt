@@ -9,7 +9,7 @@ class ChessBoardFormatter {
     }
 
     private fun rankToFen(rank: List<Char>): String {
-        return "8"
+        return rank.map { square -> if (square == EMPTY_SQUARE) '1' else square }.joinToString("")
     }
 
 }

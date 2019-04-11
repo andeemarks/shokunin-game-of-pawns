@@ -45,7 +45,8 @@ class ChessBoard {
 
     private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
 
-    private fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
-    private fun blackPromotionRank(board: List<List<Char>>)= board[BLACK_PROMOTION_RANK]
+    fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
+    fun blackPromotionRank(board: List<List<Char>>)= board[BLACK_PROMOTION_RANK]
+    fun squares() = board.flatten()
 }
 

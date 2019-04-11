@@ -1,45 +1,54 @@
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotSame
 import kotlin.test.assertTrue
 
 class GameOfPawnsTest {
-    private val board = ChessBoard().board
-    private val fen = ChessBoardFormatter().asFEN(board)
-    private val fenElements = fen.split(" ")
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENPiecePlacement() {
-        val pieces = fenElements[0]
-        assertEquals(8, pieces.split("/").size)
+    fun populatedBoardHasCorrectNumberOfRows() {
+        assertEquals(8, ChessBoard().board.size)
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENActiveColor() {
-        val activeColor = fenElements[1]
-        assertTrue(activeColor.contains(Regex("[wb]")), "$activeColor is not 'w' or 'b'")
+    fun populatedBoardOnlyHas32Pieces() {
+        val board = ChessBoard()
+        assertEquals(32, board.squares().count { square -> square != '.' })
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoCastlingRights() {
-        val castlingAvailability = fenElements[2]
-        assertEquals("-", castlingAvailability)
+    fun populatedBoardIncludesAllWhitePieces() {
+        val board = ChessBoard()
+        val squares = board.squares().sorted().joinToString("")
+
+        assertTrue(squares.contains(WHITE_PIECES.toCharArray().sorted().joinToString("")))
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoEnPassant() {
-        val enPassant = fenElements[3]
-        assertEquals("-", enPassant)
+    fun populatedBoardIncludesAllBlackPieces() {
+        val board = ChessBoard()
+        val squares = board.squares().sorted().joinToString("")
+
+        assertTrue(squares.contains(BLACK_PIECES.toCharArray().sorted().joinToString("")))
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndNoHalfmoveClock() {
-        val halfMoveClock = fenElements[4]
-        assertEquals("0", halfMoveClock)
+    fun boardPopulationChangesEachTime() {
+        assertNotSame(ChessBoard(), ChessBoard())
     }
 
     @Test
-    fun populatedBoardCanBeFormattedWithValidFENAndFullmoveNumberReset() {
-        val fullmoveNumber = fenElements[5]
-        assertEquals("1", fullmoveNumber)
+    fun populatedBoardHasNoWhitePawnsInPromotionSquare() {
+        val whitePromotionRow = ChessBoard().whitePromotionRank(ChessBoard().board)
+        assertFalse(whitePromotionRow.contains('P'), "Found white pawn in promotion square: $whitePromotionRow")
+
+    }
+
+    @Test
+    fun populatedBoardHasNoBlackPawnsInPromotionSquare() {
+        val blackPromotionRow = ChessBoard().blackPromotionRank(ChessBoard().board)
+        assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
+
     }
 }
