@@ -9,15 +9,17 @@ class ChessBoardFormatter {
     }
 
     private fun rankToFen(rank: List<Char>): String {
-        var fenRank = rank.map { square -> if (square == EMPTY_SQUARE) '1' else square }.joinToString("")
+        var fenRank = rank.joinToString("")
 
-        val consecutiveEmptySpacesRE = "(.*)(\\d)(\\d)(.*)"
-        var consecutiveEmptySquares = Regex(consecutiveEmptySpacesRE).find(fenRank)
-        while (consecutiveEmptySquares?.value != null) {
-            val rankComponents = consecutiveEmptySquares.groupValues
-            fenRank = rankComponents[1] + (rankComponents[2].toInt() + rankComponents[3].toInt()) + rankComponents[4]
-            consecutiveEmptySquares = Regex(consecutiveEmptySpacesRE).find(fenRank)
-        }
+        fenRank = fenRank.replace("........", "8")
+        fenRank = fenRank.replace(".......", "7")
+        fenRank = fenRank.replace("......", "6")
+        fenRank = fenRank.replace(".....", "5")
+        fenRank = fenRank.replace("....", "4")
+        fenRank = fenRank.replace("...", "3")
+        fenRank = fenRank.replace("..", "2")
+        fenRank = fenRank.replace(".", "1")
+
         return fenRank
     }
 
