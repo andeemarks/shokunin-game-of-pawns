@@ -48,5 +48,9 @@ class ChessBoard {
     fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
     fun blackPromotionRank(board: List<List<Char>>)= board[BLACK_PROMOTION_RANK]
     fun squares() = board.flatten()
+
+    fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = Pair(0, 0)
+    fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = Pair(0, 0)
+    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean = true
 }
 
