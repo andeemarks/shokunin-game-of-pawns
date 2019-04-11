@@ -54,11 +54,34 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardHasNoAdjacentKings() {
-        val board = ChessBoard().board
+    fun populatedBoardCanDetectAdjacentKingsOnTheSameRank() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = "Kk......".toCharArray().toList()
         val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
         val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
 
-        assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing))
+        assertTrue(ChessBoard().areNeighbours(whiteKing, blackKing))
+    }
+
+    @Test
+    fun populatedBoardCanDetectAdjacentKingsOnTheSameColumn() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = "K.......".toCharArray().toList()
+        board[1] = "k.......".toCharArray().toList()
+        val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
+        val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
+
+        assertTrue(ChessBoard().areNeighbours(whiteKing, blackKing))
+    }
+
+    @Test
+    fun populatedBoardCanDetectAdjacentKingsDiagonally() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = "K.......".toCharArray().toList()
+        board[1] = ".k......".toCharArray().toList()
+        val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
+        val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
+
+        assertTrue(ChessBoard().areNeighbours(whiteKing, blackKing))
     }
 }

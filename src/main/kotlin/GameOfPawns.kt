@@ -1,3 +1,5 @@
+import kotlin.math.absoluteValue
+
 private const val PIECES = "RNBQKBNR"
 private const val RANK_WIDTH = 8
 
@@ -17,7 +19,7 @@ class ChessBoard {
     var board: List<List<Char>> = populate()
 
     private fun populate(): List<List<Char>> {
-        var initialPopulation: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList()}.toMutableList()
+        var initialPopulation: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
 
         initialPopulation = removeAnyPawnsFromPromotionRanks(initialPopulation)
 
@@ -46,11 +48,17 @@ class ChessBoard {
     private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
 
     fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
-    fun blackPromotionRank(board: List<List<Char>>)= board[BLACK_PROMOTION_RANK]
+    fun blackPromotionRank(board: List<List<Char>>) = board[BLACK_PROMOTION_RANK]
     fun squares() = board.flatten()
 
-    fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = Pair(0, 0)
-    fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = Pair(0, 0)
-    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean = true
+    fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'k')
+    fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'K')
+
+    private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) =
+            board.flatten().mapIndexed { i, square -> if (square == piece) Pair(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
+
+    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean {
+        return ((whiteKing.first - blackKing.first).absoluteValue <= 1 && (whiteKing.second - blackKing.second).absoluteValue <= 1)
+    }
 }
 
