@@ -27,6 +27,16 @@ class ChessBoardFormatterTest {
     }
 
     @Test
+    fun populatedBoardCanBeFENFormattedWithConsecutiveEmptySquares() {
+        val board = board.toMutableList()
+        board[0] = ".Pp..Kq.".toCharArray().toList()
+        val fen = ChessBoardFormatter().asFEN(board)
+        val ranks = fen.split(" ")[0]
+
+        assertEquals("1Pp2Kq1", ranks.split("/")[0])
+    }
+
+    @Test
     fun populatedBoardCanBeFENFormattedWithRankOfPawns() {
         val board = board.toMutableList()
         board[0] = WHITE_PAWN.toString().repeat(8).toCharArray().toList()
