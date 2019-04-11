@@ -7,14 +7,13 @@ import kotlin.test.assertTrue
 class GameOfPawnsTest {
 
     @Test
-    fun populatedBoardHasCorrectNumberOfRows() {
+    fun populatedBoardHasCorrectNumberOfRanks() {
         assertEquals(8, ChessBoard().board.size)
     }
 
     @Test
     fun populatedBoardOnlyHas32Pieces() {
-        val board = ChessBoard()
-        assertEquals(32, board.squares().count { square -> square != '.' })
+        assertEquals(32, ChessBoard().squares().count { square -> square != '.' })
     }
 
     @Test
@@ -36,19 +35,23 @@ class GameOfPawnsTest {
     @Test
     fun boardPopulationChangesEachTime() {
         assertNotSame(ChessBoard(), ChessBoard())
+        assertNotSame(ChessBoard(), ChessBoard())
+        assertNotSame(ChessBoard(), ChessBoard())
+        assertNotSame(ChessBoard(), ChessBoard())
+        assertNotSame(ChessBoard(), ChessBoard())
     }
 
     @Test
-    fun populatedBoardHasNoWhitePawnsInPromotionSquare() {
-        val whitePromotionRow = ChessBoard().whitePromotionRank(ChessBoard().board)
-        assertFalse(whitePromotionRow.contains('P'), "Found white pawn in promotion square: $whitePromotionRow")
+    fun populatedBoardHasNoWhitePawnsInPromotionRank() {
+        val whitePromotionRank = ChessBoard().whitePromotionRank(ChessBoard().board)
+        assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
 
     }
 
     @Test
-    fun populatedBoardHasNoBlackPawnsInPromotionSquare() {
-        val blackPromotionRow = ChessBoard().blackPromotionRank(ChessBoard().board)
-        assertFalse(blackPromotionRow.contains('p'), "Found black pawn in promotion square: $blackPromotionRow")
+    fun populatedBoardHasNoBlackPawnsInPromotionRank() {
+        val blackPromotionRank = ChessBoard().blackPromotionRank(ChessBoard().board)
+        assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
 
     }
 }
