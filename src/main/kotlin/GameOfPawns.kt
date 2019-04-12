@@ -28,6 +28,14 @@ class ChessBoard {
     }
 
     private fun preventKingsFromBeingNeighbours(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+        val whiteKing: Pair<Int, Int> = whiteKingPosition(squares)
+        val blackKing: Pair<Int, Int> = blackKingPosition(squares)
+
+        if (areNeighbours(whiteKing, blackKing)) {
+            val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKing, square)}.shuffled().first()
+            squares[newWhiteKingPosition.first][newWhiteKingPosition.second] = 'K'; squares[whiteKing.first][whiteKing.second] = EMPTY_SQUARE
+        }
+
         return squares
     }
 
@@ -66,11 +74,11 @@ class ChessBoard {
     fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'k')
     fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'K')
 
-    private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) =
-            board.flatten().mapIndexed { i, square -> if (square == piece) Pair(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
+    private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) = board.flatten().mapIndexed { i, square -> if (square == piece) Pair(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
 
-    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean {
-        return ((whiteKing.first - blackKing.first).absoluteValue <= 1 && (whiteKing.second - blackKing.second).absoluteValue <= 1)
-    }
+    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean = (columnDistanceBetween(whiteKing, blackKing) <= 1 && rowDistanceBetween(whiteKing, blackKing) <= 1)
+
+    private fun rowDistanceBetween(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>) = (whiteKing.second - blackKing.second).absoluteValue
+    private fun columnDistanceBetween(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>) = (whiteKing.first - blackKing.first).absoluteValue
 }
 

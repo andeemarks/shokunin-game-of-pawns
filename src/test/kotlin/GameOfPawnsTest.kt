@@ -55,12 +55,12 @@ class GameOfPawnsTest {
 
     @Test
     fun populatedBoardDoesNotPlaceKingsInAdjacentSquares() {
-        repeat(20) {
+        repeat(50) {
             val board = ChessBoard().board
-            val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
-            val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
 
-            assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing))
+            val whiteKing = ChessBoard().whiteKingPosition(board)
+            val blackKing = ChessBoard().blackKingPosition(board)
+            assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing), "Kings are adjacent at $whiteKing and $blackKing")
         }
     }
 
