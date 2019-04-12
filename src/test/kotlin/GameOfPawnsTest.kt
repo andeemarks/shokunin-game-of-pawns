@@ -54,6 +54,27 @@ class GameOfPawnsTest {
     }
 
     @Test
+    fun populatedBoardDoesNotDetectDistantKingsOnSameRank() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = "K.k.....".toCharArray().toList()
+        val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
+        val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
+
+        assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing))
+    }
+
+    @Test
+    fun populatedBoardDoesNotDetectDistantKingsOnDifferent() {
+        val board = ChessBoard().board.toMutableList()
+        board[0] = "K.......".toCharArray().toList()
+        board[2] = "k.......".toCharArray().toList()
+        val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
+        val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
+
+        assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing))
+    }
+
+    @Test
     fun populatedBoardCanDetectAdjacentKingsOnTheSameRank() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "Kk......".toCharArray().toList()

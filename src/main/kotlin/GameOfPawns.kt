@@ -27,28 +27,24 @@ class ChessBoard {
     }
 
     private fun removeAnyPawnsFromPromotionRanks(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
-        squares = removeWhitePawnsFromPromotionRank(squares)
-        squares = removeBlackPawnsFromPromotionRank(squares)
+        removeWhitePawnsFromPromotionRank(squares)
+        removeBlackPawnsFromPromotionRank(squares)
 
         return squares
     }
 
-    private fun removeBlackPawnsFromPromotionRank(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+    private fun removeBlackPawnsFromPromotionRank(squares: MutableList<MutableList<Char>>) {
         val pawnsToMove = blackPawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForBlackPawns(squares).shuffled()
 
         pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> squares[availableSpots[i].first][availableSpots[i].second] = BLACK_PAWN; squares[pawn.first][pawn.second] = EMPTY_SQUARE }
-
-        return squares
     }
 
-    private fun removeWhitePawnsFromPromotionRank(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+    private fun removeWhitePawnsFromPromotionRank(squares: MutableList<MutableList<Char>>) {
         val pawnsToMove = whitePawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForWhitePawns(squares).shuffled()
 
         pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> squares[availableSpots[i].first][availableSpots[i].second] = WHITE_PAWN; squares[pawn.first][pawn.second] = EMPTY_SQUARE }
-
-        return squares
     }
 
     private fun availableSquaresForWhitePawns(board: List<List<Char>>): List<Pair<Int, Int>> = emptySquares(board).filter { square -> square.first != WHITE_PROMOTION_RANK }
