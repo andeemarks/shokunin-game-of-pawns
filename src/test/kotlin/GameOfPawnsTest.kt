@@ -54,7 +54,18 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardDoesNotDetectDistantKingsOnSameRank() {
+    fun populatedBoardDoesNotPlaceKingsInAdjacentSquares() {
+        repeat(20) {
+            val board = ChessBoard().board
+            val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
+            val blackKing: Pair<Int, Int> = ChessBoard().blackKingPosition(board)
+
+            assertFalse(ChessBoard().areNeighbours(whiteKing, blackKing))
+        }
+    }
+
+    @Test
+    fun boardDoesNotDetectDistantKingsOnSameRankAsNeighbours() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "K.k.....".toCharArray().toList()
         val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
@@ -64,7 +75,7 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardDoesNotDetectDistantKingsOnDifferent() {
+    fun boardDoesNotDetectDistantKingsAsNeighbours() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[2] = "k.......".toCharArray().toList()
@@ -75,7 +86,7 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardCanDetectAdjacentKingsOnTheSameRank() {
+    fun boardCanDetectAdjacentKingsOnTheSameRankAsNeighbours() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "Kk......".toCharArray().toList()
         val whiteKing: Pair<Int, Int> = ChessBoard().whiteKingPosition(board)
@@ -85,7 +96,7 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardCanDetectAdjacentKingsOnTheSameColumn() {
+    fun boardCanDetectAdjacentKingsOnTheSameColumnAsNeighbours() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[1] = "k.......".toCharArray().toList()
@@ -96,7 +107,7 @@ class GameOfPawnsTest {
     }
 
     @Test
-    fun populatedBoardCanDetectAdjacentKingsDiagonally() {
+    fun boardCanDetectAdjacentKingsDiagonallyAsNeighbours() {
         val board = ChessBoard().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[1] = ".k......".toCharArray().toList()

@@ -22,8 +22,13 @@ class ChessBoard {
         var initialPopulation: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
 
         initialPopulation = removeAnyPawnsFromPromotionRanks(initialPopulation)
+        initialPopulation = preventKingsFromBeingNeighbours(initialPopulation)
 
         return initialPopulation
+    }
+
+    private fun preventKingsFromBeingNeighbours(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+        return squares
     }
 
     private fun removeAnyPawnsFromPromotionRanks(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
