@@ -6,6 +6,8 @@ import kotlin.test.assertTrue
 
 class BoardGeneratorTest {
 
+    private val testExecutionCount = 50
+
     @Test
     fun populatedBoardHasCorrectNumberOfRanks() {
         assertEquals(8, BoardGenerator().board.size)
@@ -13,49 +15,57 @@ class BoardGeneratorTest {
 
     @Test
     fun populatedBoardOnlyHas32Pieces() {
-        assertEquals(32, BoardGenerator().squares().count { square -> square != '.' })
+        repeat(testExecutionCount) {
+            assertEquals(32, BoardGenerator().squares().count { square -> square != '.' })
+        }
     }
 
     @Test
     fun populatedBoardIncludesAllWhitePieces() {
-        val board = BoardGenerator()
-        val squares = board.squares().sorted().joinToString("")
+        repeat(testExecutionCount) {
+            val board = BoardGenerator()
+            val squares = board.squares().sorted().joinToString("")
 
-        assertTrue(squares.contains(WHITE_PIECES.toCharArray().sorted().joinToString("")))
+            assertTrue(squares.contains(WHITE_PIECES.toCharArray().sorted().joinToString("")))
+        }
     }
 
     @Test
     fun populatedBoardIncludesAllBlackPieces() {
-        val board = BoardGenerator()
-        val squares = board.squares().sorted().joinToString("")
+        repeat(testExecutionCount) {
+            val board = BoardGenerator()
+            val squares = board.squares().sorted().joinToString("")
 
-        assertTrue(squares.contains(BLACK_PIECES.toCharArray().sorted().joinToString("")))
+            assertTrue(squares.contains(BLACK_PIECES.toCharArray().sorted().joinToString("")))
+        }
     }
 
     @Test
     fun boardPopulationChangesEachTime() {
-        assertNotSame(BoardGenerator(), BoardGenerator())
-        assertNotSame(BoardGenerator(), BoardGenerator())
-        assertNotSame(BoardGenerator(), BoardGenerator())
-        assertNotSame(BoardGenerator(), BoardGenerator())
-        assertNotSame(BoardGenerator(), BoardGenerator())
+        repeat(testExecutionCount) {
+            assertNotSame(BoardGenerator(), BoardGenerator())
+        }
     }
 
     @Test
     fun populatedBoardHasNoWhitePawnsInPromotionRank() {
-        val whitePromotionRank = BoardGenerator().whitePromotionRank(BoardGenerator().board)
-        assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
+        repeat(testExecutionCount) {
+            val whitePromotionRank = BoardGenerator().whitePromotionRank(BoardGenerator().board)
+            assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
+        }
     }
 
     @Test
     fun populatedBoardHasNoBlackPawnsInPromotionRank() {
-        val blackPromotionRank = BoardGenerator().blackPromotionRank(BoardGenerator().board)
-        assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
+        repeat(testExecutionCount) {
+            val blackPromotionRank = BoardGenerator().blackPromotionRank(BoardGenerator().board)
+            assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
+        }
     }
 
     @Test
     fun populatedBoardDoesNotPlaceKingsInAdjacentSquares() {
-        repeat(50) {
+        repeat(testExecutionCount) {
             val board = BoardGenerator().board
 
             val whiteKing = BoardGenerator().whiteKingPosition(board)
