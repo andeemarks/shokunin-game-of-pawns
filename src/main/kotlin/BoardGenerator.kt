@@ -14,7 +14,7 @@ private val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
 private const val WHITE_PROMOTION_RANK = 0
 private const val BLACK_PROMOTION_RANK = 7
 
-class ChessBoard {
+class BoardGenerator {
 
     var board: List<List<Char>> = populate()
 

@@ -1,4 +1,4 @@
-class ChessBoardFormatter {
+class BoardFormatter {
 
     private val staticFields = "w - - 0 1"
 

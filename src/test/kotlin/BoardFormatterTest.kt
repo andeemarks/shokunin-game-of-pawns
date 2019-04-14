@@ -2,28 +2,28 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class ChessBoardFormatterTest {
-    private val board = ChessBoard().board
+class BoardFormatterTest {
+    private val board = BoardGenerator().board
 
     private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
     @Test
     fun boardCanBeGridFormattedWithCorrectNumberOfRanks() {
-        val grid = ChessBoardFormatter().asGrid(board)
+        val grid = BoardFormatter().asGrid(board)
 
         assertEquals(8, grid.size)
     }
 
     @Test
     fun boardCanBeGridFormattedShowingAllSquares() {
-        val grid = ChessBoardFormatter().asGrid(board)
+        val grid = BoardFormatter().asGrid(board)
 
         repeat(8) { rank -> assertEquals(board[rank].joinToString(""), grid[rank]) }
     }
 
     @Test
     fun boardCanBeFENFormattedWithNumberOfRanks() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
         assertEquals(8, ranks.split("/").size)
@@ -34,7 +34,7 @@ class ChessBoardFormatterTest {
         val board = board.toMutableList()
         board[0] = emptyRank()
         board[3] = emptyRank()
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
         assertEquals("8", ranks.split("/")[0])
@@ -45,7 +45,7 @@ class ChessBoardFormatterTest {
     fun boardCanBeFENFormattedWithConsecutiveEmptySquares() {
         val board = board.toMutableList()
         board[0] = ".Pp..Kq.".toCharArray().toList()
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
         assertEquals("1Pp2Kq1", ranks.split("/")[0])
@@ -55,7 +55,7 @@ class ChessBoardFormatterTest {
     fun boardCanBeFENFormattedWithRankOfPawns() {
         val board = board.toMutableList()
         board[0] = WHITE_PAWN.toString().repeat(8).toCharArray().toList()
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
         assertEquals("PPPPPPPP", ranks.split("/")[0])
@@ -65,7 +65,7 @@ class ChessBoardFormatterTest {
     fun boardCanBeFENFormattedWithRankOfMixedPieces() {
         val board = board.toMutableList()
         board[0] = ".PpR.Kq.".toCharArray().toList()
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
         assertEquals("1PpR1Kq1", ranks.split("/")[0])
@@ -73,7 +73,7 @@ class ChessBoardFormatterTest {
 
     @Test
     fun boardCanBeFENFormattedWithActiveColor() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val activeColor = fen.split(" ")[1]
 
         assertTrue(activeColor.contains(Regex("[wb]")), "$activeColor is not 'w' or 'b'")
@@ -81,7 +81,7 @@ class ChessBoardFormatterTest {
 
     @Test
     fun boardCanBeFENFormattedWithNoCastlingRights() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val castlingAvailability = fen.split(" ")[2]
 
         assertEquals("-", castlingAvailability)
@@ -89,7 +89,7 @@ class ChessBoardFormatterTest {
 
     @Test
     fun boardCanBeFENFormattedWithNoEnPassant() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val enPassant = fen.split(" ")[3]
 
         assertEquals("-", enPassant)
@@ -97,7 +97,7 @@ class ChessBoardFormatterTest {
 
     @Test
     fun boardCanBeFENFormattedWithNoHalfmoveClock() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val halfMoveClock = fen.split(" ")[4]
 
         assertEquals("0", halfMoveClock)
@@ -105,7 +105,7 @@ class ChessBoardFormatterTest {
 
     @Test
     fun boardCanBeFENFormattedWithFullmoveNumberReset() {
-        val fen = ChessBoardFormatter().asFEN(board)
+        val fen = BoardFormatter().asFEN(board)
         val fullmoveNumber = fen.split(" ")[5]
 
         assertEquals("1", fullmoveNumber)
