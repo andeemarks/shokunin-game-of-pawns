@@ -23,8 +23,8 @@ class BoardFormatter {
         return fenRank
     }
 
-    fun asGrid(board: List<List<Char>>): List<String> {
-        return board.map { rank -> rank.joinToString("") }
+    fun asGrid(board: List<List<Char>>): String {
+        return board.joinToString("\n") { rank -> rank.joinToString("") }
     }
 
 }

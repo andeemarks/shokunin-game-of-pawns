@@ -1,4 +1,5 @@
 fun main(args: Array<String>) {
-    System.out.println(BoardFormatter().asGrid(BoardGenerator().board))
-    System.out.println(BoardFormatter().asFEN(BoardGenerator().board))
+    val board = BoardGenerator().board
+    System.out.println(BoardFormatter().asGrid(board))
+    System.out.println(BoardFormatter().asFEN(board))
 }

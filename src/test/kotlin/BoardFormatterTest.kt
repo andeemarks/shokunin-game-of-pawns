@@ -11,14 +11,15 @@ class BoardFormatterTest {
     fun boardCanBeGridFormattedWithCorrectNumberOfRanks() {
         val grid = BoardFormatter().asGrid(board)
 
-        assertEquals(8, grid.size)
+        assertEquals(8, grid.split("\n").size)
     }
 
     @Test
     fun boardCanBeGridFormattedShowingAllSquares() {
         val grid = BoardFormatter().asGrid(board)
+        var ranks = grid.split("\n")
 
-        repeat(8) { rank -> assertEquals(board[rank].joinToString(""), grid[rank]) }
+        repeat(8) { rank -> assertEquals(board[rank].joinToString(""), ranks[rank]) }
     }
 
     @Test
