@@ -3,4 +3,4 @@
 set -euo pipefail
 
 ./gradlew --quiet installDist
-./build/install/game-of-pawns/bin/game-of-pawns $@
+./build/install/shokunin-game-of-pawns/bin/shokunin-game-of-pawns $@
