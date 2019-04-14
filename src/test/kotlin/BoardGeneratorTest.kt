@@ -9,19 +9,19 @@ private const val TEST_EXECUTION_COUNT = 50
 class BoardGeneratorTest {
 
     @Test
-    fun populatedBoardHasCorrectNumberOfRanks() {
+    fun boardHasCorrectNumberOfRanks() {
         assertEquals(8, BoardGenerator().board.size)
     }
 
     @Test
-    fun populatedBoardOnlyHas32Pieces() {
+    fun boardOnlyHas32Pieces() {
         repeat(TEST_EXECUTION_COUNT) {
             assertEquals(32, BoardGenerator().squares().count { square -> square != '.' })
         }
     }
 
     @Test
-    fun populatedBoardIncludesAllWhitePieces() {
+    fun boardIncludesAllWhitePieces() {
         repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
@@ -31,7 +31,7 @@ class BoardGeneratorTest {
     }
 
     @Test
-    fun populatedBoardIncludesAllBlackPieces() {
+    fun boardIncludesAllBlackPieces() {
         repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
@@ -48,7 +48,7 @@ class BoardGeneratorTest {
     }
 
     @Test
-    fun populatedBoardHasNoWhitePawnsInPromotionRank() {
+    fun boardHasNoWhitePawnsInPromotionRank() {
         repeat(TEST_EXECUTION_COUNT) {
             val whitePromotionRank = BoardGenerator().whitePromotionRank(BoardGenerator().board)
             assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
@@ -56,7 +56,7 @@ class BoardGeneratorTest {
     }
 
     @Test
-    fun populatedBoardHasNoBlackPawnsInPromotionRank() {
+    fun boardHasNoBlackPawnsInPromotionRank() {
         repeat(TEST_EXECUTION_COUNT) {
             val blackPromotionRank = BoardGenerator().blackPromotionRank(BoardGenerator().board)
             assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
@@ -64,7 +64,7 @@ class BoardGeneratorTest {
     }
 
     @Test
-    fun populatedBoardDoesNotPlaceKingsInAdjacentSquares() {
+    fun boardDoesNotPlaceKingsInAdjacentSquares() {
         repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator().board
 
