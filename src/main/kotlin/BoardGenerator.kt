@@ -70,20 +70,17 @@ class BoardGenerator {
     private fun blackPawnsInPromotionRank(board: List<List<Char>>) = blackPromotionRank(board).mapIndexed { index, square -> if (square == BLACK_PAWN) Pair(BLACK_PROMOTION_RANK, index.rem(RANK_WIDTH)) else null }.filterNotNull()
     private fun availableSquaresForBlackPawns(board: List<List<Char>>) = emptySquares(board).filter { square -> square.first != BLACK_PROMOTION_RANK }
 
-    private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
-
-    fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
-    fun blackPromotionRank(board: List<List<Char>>) = board[BLACK_PROMOTION_RANK]
-    fun squares() = board.flatten()
-
-    fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'k')
-    fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'K')
-
     private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) = board.flatten().mapIndexed { i, square -> if (square == piece) Pair(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
-
-    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean = (columnDistanceBetween(whiteKing, blackKing) <= 1 && rowDistanceBetween(whiteKing, blackKing) <= 1)
+    private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) Pair(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
 
     private fun rowDistanceBetween(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>) = (whiteKing.second - blackKing.second).absoluteValue
     private fun columnDistanceBetween(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>) = (whiteKing.first - blackKing.first).absoluteValue
+
+    fun squares() = board.flatten()
+    fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
+    fun blackPromotionRank(board: List<List<Char>>) = board[BLACK_PROMOTION_RANK]
+    fun blackKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'k')
+    fun whiteKingPosition(board: List<List<Char>>): Pair<Int, Int> = findPositionOfPiece(board, 'K')
+    fun areNeighbours(whiteKing: Pair<Int, Int>, blackKing: Pair<Int, Int>): Boolean = (columnDistanceBetween(whiteKing, blackKing) <= 1 && rowDistanceBetween(whiteKing, blackKing) <= 1)
 }
 

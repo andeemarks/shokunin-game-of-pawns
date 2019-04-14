@@ -4,9 +4,9 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotSame
 import kotlin.test.assertTrue
 
-class BoardGeneratorTest {
+private const val TEST_EXECUTION_COUNT = 50
 
-    private val testExecutionCount = 50
+class BoardGeneratorTest {
 
     @Test
     fun populatedBoardHasCorrectNumberOfRanks() {
@@ -15,14 +15,14 @@ class BoardGeneratorTest {
 
     @Test
     fun populatedBoardOnlyHas32Pieces() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             assertEquals(32, BoardGenerator().squares().count { square -> square != '.' })
         }
     }
 
     @Test
     fun populatedBoardIncludesAllWhitePieces() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
 
@@ -32,7 +32,7 @@ class BoardGeneratorTest {
 
     @Test
     fun populatedBoardIncludesAllBlackPieces() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
 
@@ -42,14 +42,14 @@ class BoardGeneratorTest {
 
     @Test
     fun boardPopulationChangesEachTime() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             assertNotSame(BoardGenerator(), BoardGenerator())
         }
     }
 
     @Test
     fun populatedBoardHasNoWhitePawnsInPromotionRank() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             val whitePromotionRank = BoardGenerator().whitePromotionRank(BoardGenerator().board)
             assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
         }
@@ -57,7 +57,7 @@ class BoardGeneratorTest {
 
     @Test
     fun populatedBoardHasNoBlackPawnsInPromotionRank() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             val blackPromotionRank = BoardGenerator().blackPromotionRank(BoardGenerator().board)
             assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
         }
@@ -65,7 +65,7 @@ class BoardGeneratorTest {
 
     @Test
     fun populatedBoardDoesNotPlaceKingsInAdjacentSquares() {
-        repeat(testExecutionCount) {
+        repeat(TEST_EXECUTION_COUNT) {
             val board = BoardGenerator().board
 
             val whiteKing = BoardGenerator().whiteKingPosition(board)
