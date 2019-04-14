@@ -1,0 +1,1 @@
+rootProject.name = "shokunin-game-of-pawns"
