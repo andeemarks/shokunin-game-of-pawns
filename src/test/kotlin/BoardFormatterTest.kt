@@ -17,7 +17,7 @@ class BoardFormatterTest {
     @Test
     fun boardCanBeGridFormattedShowingAllSquares() {
         val grid = BoardFormatter().asGrid(board)
-        var ranks = grid.split("\n")
+        val ranks = grid.split("\n")
 
         repeat(8) { rank -> assertEquals(board[rank].joinToString(""), ranks[rank]) }
     }
