@@ -1,10 +1,25 @@
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ChessBoardFormatterTest {
     private val board = ChessBoard().board
 
     private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
+
+    @Test
+    fun populatedBoardCanBeGridFormattedWithCorrectNumberOfRanks() {
+        val grid = ChessBoardFormatter().asGrid(board)
+
+        assertEquals(8, grid.size)
+    }
+
+    @Test
+    fun populatedBoardCanBeGridFormattedShowingAllSquares() {
+        val grid = ChessBoardFormatter().asGrid(board)
+
+        repeat(8) { rank -> assertEquals(board[rank].joinToString(""), grid[rank]) }
+    }
 
     @Test
     fun populatedBoardCanBeFENFormattedWithNumberOfRanks() {

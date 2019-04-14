@@ -28,12 +28,12 @@ class ChessBoard {
     }
 
     private fun preventKingsFromBeingNeighbours(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
-        val whiteKing: Pair<Int, Int> = whiteKingPosition(squares)
-        val blackKing: Pair<Int, Int> = blackKingPosition(squares)
+        val whiteKingPosition: Pair<Int, Int> = whiteKingPosition(squares)
+        val blackKingPosition: Pair<Int, Int> = blackKingPosition(squares)
 
-        if (areNeighbours(whiteKing, blackKing)) {
-            val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKing, square)}.shuffled().first()
-            switchWithEmptySquare(squares, newWhiteKingPosition, whiteKing, 'K')
+        if (areNeighbours(whiteKingPosition, blackKingPosition)) {
+            val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKingPosition, square) }.shuffled().first()
+            switchWithEmptySquare(squares, newWhiteKingPosition, whiteKingPosition, 'K')
         }
 
         return squares
