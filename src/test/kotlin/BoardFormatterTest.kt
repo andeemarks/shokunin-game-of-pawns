@@ -19,7 +19,7 @@ class BoardFormatterTest {
         val grid = BoardFormatter().asGrid(board)
         val ranks = grid.split("\n")
 
-        repeat(8) { rank -> assertEquals(board[rank].joinToString(""), ranks[rank]) }
+        repeat(8) { rank -> assertEquals(board[rank].joinToString(" "), ranks[rank]) }
     }
 
     @Test

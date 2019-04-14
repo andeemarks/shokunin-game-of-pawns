@@ -24,7 +24,7 @@ class BoardFormatter {
     }
 
     fun asGrid(board: List<List<Char>>): String {
-        return board.joinToString("\n") { rank -> rank.joinToString("") }
+        return board.joinToString("\n") { rank -> rank.joinToString(" ") }
     }
 
 }
