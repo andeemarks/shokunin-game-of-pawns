@@ -8,21 +8,21 @@ class ChessBoardFormatterTest {
     private fun emptyRank() = EMPTY_SQUARE.toString().repeat(8).toCharArray().toList()
 
     @Test
-    fun populatedBoardCanBeGridFormattedWithCorrectNumberOfRanks() {
+    fun boardCanBeGridFormattedWithCorrectNumberOfRanks() {
         val grid = ChessBoardFormatter().asGrid(board)
 
         assertEquals(8, grid.size)
     }
 
     @Test
-    fun populatedBoardCanBeGridFormattedShowingAllSquares() {
+    fun boardCanBeGridFormattedShowingAllSquares() {
         val grid = ChessBoardFormatter().asGrid(board)
 
         repeat(8) { rank -> assertEquals(board[rank].joinToString(""), grid[rank]) }
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithNumberOfRanks() {
+    fun boardCanBeFENFormattedWithNumberOfRanks() {
         val fen = ChessBoardFormatter().asFEN(board)
         val ranks = fen.split(" ")[0]
 
@@ -30,7 +30,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithEmptyRank() {
+    fun boardCanBeFENFormattedWithEmptyRank() {
         val board = board.toMutableList()
         board[0] = emptyRank()
         board[3] = emptyRank()
@@ -42,7 +42,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithConsecutiveEmptySquares() {
+    fun boardCanBeFENFormattedWithConsecutiveEmptySquares() {
         val board = board.toMutableList()
         board[0] = ".Pp..Kq.".toCharArray().toList()
         val fen = ChessBoardFormatter().asFEN(board)
@@ -52,7 +52,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithRankOfPawns() {
+    fun boardCanBeFENFormattedWithRankOfPawns() {
         val board = board.toMutableList()
         board[0] = WHITE_PAWN.toString().repeat(8).toCharArray().toList()
         val fen = ChessBoardFormatter().asFEN(board)
@@ -62,7 +62,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithRankOfMixedPieces() {
+    fun boardCanBeFENFormattedWithRankOfMixedPieces() {
         val board = board.toMutableList()
         board[0] = ".PpR.Kq.".toCharArray().toList()
         val fen = ChessBoardFormatter().asFEN(board)
@@ -72,7 +72,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithActiveColor() {
+    fun boardCanBeFENFormattedWithActiveColor() {
         val fen = ChessBoardFormatter().asFEN(board)
         val activeColor = fen.split(" ")[1]
 
@@ -80,7 +80,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithNoCastlingRights() {
+    fun boardCanBeFENFormattedWithNoCastlingRights() {
         val fen = ChessBoardFormatter().asFEN(board)
         val castlingAvailability = fen.split(" ")[2]
 
@@ -88,7 +88,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithNoEnPassant() {
+    fun boardCanBeFENFormattedWithNoEnPassant() {
         val fen = ChessBoardFormatter().asFEN(board)
         val enPassant = fen.split(" ")[3]
 
@@ -96,7 +96,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithNoHalfmoveClock() {
+    fun boardCanBeFENFormattedWithNoHalfmoveClock() {
         val fen = ChessBoardFormatter().asFEN(board)
         val halfMoveClock = fen.split(" ")[4]
 
@@ -104,7 +104,7 @@ class ChessBoardFormatterTest {
     }
 
     @Test
-    fun populatedBoardCanBeFENFormattedWithFullmoveNumberReset() {
+    fun boardCanBeFENFormattedWithFullmoveNumberReset() {
         val fen = ChessBoardFormatter().asFEN(board)
         val fullmoveNumber = fen.split(" ")[5]
 
