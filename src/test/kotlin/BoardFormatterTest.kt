@@ -83,17 +83,15 @@ class BoardFormatterTest {
     @Test
     fun boardCanBeFENFormattedWithNoCastlingRights() {
         val fen = BoardFormatter().asFEN(board)
-        val castlingAvailability = fen.split(" ")[2]
 
-        assertEquals("-", castlingAvailability)
+        assertEquals("-", fen.split(" ")[2])
     }
 
     @Test
     fun boardCanBeFENFormattedWithNoEnPassant() {
         val fen = BoardFormatter().asFEN(board)
-        val enPassant = fen.split(" ")[3]
 
-        assertEquals("-", enPassant)
+        assertEquals("-", fen.split(" ")[3])
     }
 
     @Test
