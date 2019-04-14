@@ -33,10 +33,15 @@ class ChessBoard {
 
         if (areNeighbours(whiteKing, blackKing)) {
             val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKing, square)}.shuffled().first()
-            squares[newWhiteKingPosition.first][newWhiteKingPosition.second] = 'K'; squares[whiteKing.first][whiteKing.second] = EMPTY_SQUARE
+            switchWithEmptySquare(squares, newWhiteKingPosition, whiteKing, 'K')
         }
 
         return squares
+    }
+
+    private fun switchWithEmptySquare(squares: MutableList<MutableList<Char>>, position1: Pair<Int, Int>, position2: Pair<Int, Int>, position2Occupant: Char) {
+        squares[position1.first][position1.second] = position2Occupant
+        squares[position2.first][position2.second] = EMPTY_SQUARE
     }
 
     private fun removeAnyPawnsFromPromotionRanks(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
@@ -50,14 +55,14 @@ class ChessBoard {
         val pawnsToMove = blackPawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForBlackPawns(squares).shuffled()
 
-        pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> squares[availableSpots[i].first][availableSpots[i].second] = BLACK_PAWN; squares[pawn.first][pawn.second] = EMPTY_SQUARE }
+        pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> switchWithEmptySquare(squares, availableSpots[i], pawn, BLACK_PAWN) }
     }
 
     private fun removeWhitePawnsFromPromotionRank(squares: MutableList<MutableList<Char>>) {
         val pawnsToMove = whitePawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForWhitePawns(squares).shuffled()
 
-        pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> squares[availableSpots[i].first][availableSpots[i].second] = WHITE_PAWN; squares[pawn.first][pawn.second] = EMPTY_SQUARE }
+        pawnsToMove.forEachIndexed { i: Int, pawn: Pair<Int, Int> -> switchWithEmptySquare(squares, availableSpots[i], pawn, WHITE_PAWN) }
     }
 
     private fun availableSquaresForWhitePawns(board: List<List<Char>>): List<Pair<Int, Int>> = emptySquares(board).filter { square -> square.first != WHITE_PROMOTION_RANK }
