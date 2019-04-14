@@ -19,15 +19,15 @@ class BoardGenerator {
     var board: List<List<Char>> = populate()
 
     private fun populate(): List<List<Char>> {
-        var initialPopulation: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
+        var populatedBoard: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
 
-        initialPopulation = removeAnyPawnsFromPromotionRanks(initialPopulation)
-        initialPopulation = preventKingsFromBeingNeighbours(initialPopulation)
+        populatedBoard = preventPromoPawns(populatedBoard)
+        populatedBoard = preventNeighbouringKings(populatedBoard)
 
-        return initialPopulation
+        return populatedBoard
     }
 
-    private fun preventKingsFromBeingNeighbours(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+    private fun preventNeighbouringKings(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
         val whiteKingPosition: Pair<Int, Int> = whiteKingPosition(squares)
         val blackKingPosition: Pair<Int, Int> = blackKingPosition(squares)
 
@@ -44,7 +44,7 @@ class BoardGenerator {
         squares[position2.first][position2.second] = EMPTY_SQUARE
     }
 
-    private fun removeAnyPawnsFromPromotionRanks(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
+    private fun preventPromoPawns(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
         removeWhitePawnsFromPromotionRank(squares)
         removeBlackPawnsFromPromotionRank(squares)
 
