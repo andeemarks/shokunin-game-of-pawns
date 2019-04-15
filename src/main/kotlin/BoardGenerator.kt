@@ -81,12 +81,17 @@ class BoardGenerator {
         pawnsToMove.forEachIndexed { i: Int, pawn: RankAndFile -> switchWithEmptySquare(squares, availableSpots[i], pawn, WHITE_PAWN) }
     }
     private fun availableSquaresForWhitePawns(board: List<List<Char>>): List<RankAndFile> = emptySquares(board).filter { square -> square.rank != WHITE_PROMOTION_RANK }
-    private fun whitePawnsInPromotionRank(board: List<List<Char>>) = whitePromotionRank(board).mapIndexed { index, square -> if (square == WHITE_PAWN) RankAndFile(WHITE_PROMOTION_RANK, index.rem(RANK_WIDTH)) else null }.filterNotNull()
-    private fun blackPawnsInPromotionRank(board: List<List<Char>>) = blackPromotionRank(board).mapIndexed { index, square -> if (square == BLACK_PAWN) RankAndFile(BLACK_PROMOTION_RANK, index.rem(RANK_WIDTH)) else null }.filterNotNull()
+    private fun whitePawnsInPromotionRank(board: List<List<Char>>) = whitePromotionRank(board).mapIndexed { index, square -> if (square.hasWhitePawn()) RankAndFile(WHITE_PROMOTION_RANK, index.rem(RANK_WIDTH)) else null }.filterNotNull()
+    private fun blackPawnsInPromotionRank(board: List<List<Char>>) = blackPromotionRank(board).mapIndexed { index, square -> if (square.hasBlackPawn()) RankAndFile(BLACK_PROMOTION_RANK, index.rem(RANK_WIDTH)) else null }.filterNotNull()
 
     private fun availableSquaresForBlackPawns(board: List<List<Char>>) = emptySquares(board).filter { square -> square.rank != BLACK_PROMOTION_RANK }
-    private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) = board.flatten().mapIndexed { i, square -> if (square == piece) RankAndFile(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
+    private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) = board.flatten().mapIndexed { i, square -> if (square.contains(piece)) RankAndFile(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
 
-    private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) RankAndFile(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
+    private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square.isUnoccupied()) RankAndFile(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
 }
+
+private fun Char.hasBlackPawn(): Boolean = this == BLACK_PAWN
+private fun Char.hasWhitePawn(): Boolean = this == WHITE_PAWN
+private fun Char.contains(piece: Char): Boolean = this == piece
+private fun Char.isUnoccupied(): Boolean = this == EMPTY_SQUARE
 
