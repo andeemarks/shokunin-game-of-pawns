@@ -17,7 +17,10 @@ private const val BLACK_PROMOTION_RANK = 7
 private const val BLACK_KING = 'k'
 private const val WHITE_KING = 'K'
 
-class RankAndFile(val rank: Int, val file: Int)
+class RankAndFile(val rank: Int, val file: Int) {
+    fun rowDistanceTo(other: RankAndFile) = (this.rank - other.rank).absoluteValue
+    fun columnDistanceTo(other: RankAndFile) = (this.file - other.file).absoluteValue
+}
 
 class BoardGenerator {
     var board: List<List<Char>> = populate()
@@ -29,7 +32,7 @@ class BoardGenerator {
     fun blackKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, BLACK_KING)
 
     fun whiteKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, WHITE_KING)
-    fun areNeighbours(whiteKing: RankAndFile, blackKing: RankAndFile): Boolean = (columnDistanceBetween(whiteKing, blackKing) <= 1 && rowDistanceBetween(whiteKing, blackKing) <= 1)
+    fun areNeighbours(whiteKing: RankAndFile, blackKing: RankAndFile): Boolean = (whiteKing.columnDistanceTo(blackKing) <= 1 && whiteKing.rowDistanceTo(blackKing) <= 1)
 
     private fun populate(): List<List<Char>> {
         var populatedBoard: MutableList<MutableList<Char>> = "$WHITE_PIECES$BLACK_PIECES$EMPTY_SQUARES".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
@@ -85,8 +88,5 @@ class BoardGenerator {
     private fun findPositionOfPiece(board: List<List<Char>>, piece: Char) = board.flatten().mapIndexed { i, square -> if (square == piece) RankAndFile(i.div(RANK_WIDTH), i.rem(RANK_WIDTH)) else null }.filterNotNull().first()
 
     private fun emptySquares(board: List<List<Char>>) = board.flatten().mapIndexed { index, square -> if (square == EMPTY_SQUARE) RankAndFile(index.div(RANK_WIDTH), index.rem(RANK_WIDTH)) else null }.filterNotNull()
-    private fun rowDistanceBetween(whiteKing: RankAndFile, blackKing: RankAndFile) = (whiteKing.rank - blackKing.rank).absoluteValue
-
-    private fun columnDistanceBetween(whiteKing: RankAndFile, blackKing: RankAndFile) = (whiteKing.file - blackKing.file).absoluteValue
 }
 
