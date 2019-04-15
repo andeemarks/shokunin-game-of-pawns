@@ -78,8 +78,8 @@ class BoardGeneratorTest {
     fun boardDoesNotDetectDistantKingsOnSameRankAsNeighbours() {
         val board = BoardGenerator().board.toMutableList()
         board[0] = "K.k.....".toCharArray().toList()
-        val whiteKing: Pair<Int, Int> = BoardGenerator().whiteKingPosition(board)
-        val blackKing: Pair<Int, Int> = BoardGenerator().blackKingPosition(board)
+        val whiteKing = BoardGenerator().whiteKingPosition(board)
+        val blackKing = BoardGenerator().blackKingPosition(board)
 
         assertFalse(BoardGenerator().areNeighbours(whiteKing, blackKing))
     }
@@ -89,8 +89,8 @@ class BoardGeneratorTest {
         val board = BoardGenerator().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[2] = "k.......".toCharArray().toList()
-        val whiteKing: Pair<Int, Int> = BoardGenerator().whiteKingPosition(board)
-        val blackKing: Pair<Int, Int> = BoardGenerator().blackKingPosition(board)
+        val whiteKing  = BoardGenerator().whiteKingPosition(board)
+        val blackKing  = BoardGenerator().blackKingPosition(board)
 
         assertFalse(BoardGenerator().areNeighbours(whiteKing, blackKing))
     }
@@ -99,8 +99,8 @@ class BoardGeneratorTest {
     fun boardCanDetectAdjacentKingsOnTheSameRankAsNeighbours() {
         val board = BoardGenerator().board.toMutableList()
         board[0] = "Kk......".toCharArray().toList()
-        val whiteKing: Pair<Int, Int> = BoardGenerator().whiteKingPosition(board)
-        val blackKing: Pair<Int, Int> = BoardGenerator().blackKingPosition(board)
+        val whiteKing = BoardGenerator().whiteKingPosition(board)
+        val blackKing = BoardGenerator().blackKingPosition(board)
 
         assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
     }
@@ -110,8 +110,8 @@ class BoardGeneratorTest {
         val board = BoardGenerator().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[1] = "k.......".toCharArray().toList()
-        val whiteKing: Pair<Int, Int> = BoardGenerator().whiteKingPosition(board)
-        val blackKing: Pair<Int, Int> = BoardGenerator().blackKingPosition(board)
+        val whiteKing = BoardGenerator().whiteKingPosition(board)
+        val blackKing = BoardGenerator().blackKingPosition(board)
 
         assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
     }
@@ -121,8 +121,8 @@ class BoardGeneratorTest {
         val board = BoardGenerator().board.toMutableList()
         board[0] = "K.......".toCharArray().toList()
         board[1] = ".k......".toCharArray().toList()
-        val whiteKing: Pair<Int, Int> = BoardGenerator().whiteKingPosition(board)
-        val blackKing: Pair<Int, Int> = BoardGenerator().blackKingPosition(board)
+        val whiteKing = BoardGenerator().whiteKingPosition(board)
+        val blackKing = BoardGenerator().blackKingPosition(board)
 
         assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
     }
