@@ -26,7 +26,7 @@ class BoardGeneratorTest {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
 
-            assertTrue(squares.contains(WHITE_PIECES.toCharArray().sorted().joinToString("")))
+            assertTrue(squares.contains(Pieces.WHITE.toCharArray().sorted().joinToString("")))
         }
     }
 
@@ -36,7 +36,7 @@ class BoardGeneratorTest {
             val board = BoardGenerator()
             val squares = board.squares().sorted().joinToString("")
 
-            assertTrue(squares.contains(BLACK_PIECES.toCharArray().sorted().joinToString("")))
+            assertTrue(squares.contains(Pieces.BLACK.toCharArray().sorted().joinToString("")))
         }
     }
 

@@ -1,3 +1,5 @@
+import Pieces.EMPTY_SQUARE
+import Pieces.WHITE_PAWN
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
