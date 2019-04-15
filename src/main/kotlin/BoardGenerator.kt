@@ -41,8 +41,8 @@ class BoardGenerator {
     }
 
     private fun preventNeighbouringKings(squares: MutableList<MutableList<Char>>): MutableList<MutableList<Char>> {
-        val whiteKingPosition: RankAndFile = whiteKingPosition(squares)
-        val blackKingPosition: RankAndFile = blackKingPosition(squares)
+        val whiteKingPosition= whiteKingPosition(squares)
+        val blackKingPosition= blackKingPosition(squares)
 
         if (areNeighbours(whiteKingPosition, blackKingPosition)) {
             val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKingPosition, square) }.shuffled().first()
