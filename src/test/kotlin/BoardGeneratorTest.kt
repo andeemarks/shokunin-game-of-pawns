@@ -14,29 +14,12 @@ class BoardGeneratorTest {
     }
 
     @Test
-    fun boardOnlyHas32Pieces() {
+    fun boardIncludesAllExpectedPieces() {
         repeat(TEST_EXECUTION_COUNT) {
-            assertEquals(32, BoardGenerator().squares().count { square -> square != '.' })
-        }
-    }
-
-    @Test
-    fun boardIncludesAllWhitePieces() {
-        repeat(TEST_EXECUTION_COUNT) {
-            val board = BoardGenerator()
-            val squares = board.squares().sorted().joinToString("")
-
-            assertTrue(squares.contains(Pieces.WHITE.toCharArray().sorted().joinToString("")))
-        }
-    }
-
-    @Test
-    fun boardIncludesAllBlackPieces() {
-        repeat(TEST_EXECUTION_COUNT) {
-            val board = BoardGenerator()
-            val squares = board.squares().sorted().joinToString("")
-
-            assertTrue(squares.contains(Pieces.BLACK.toCharArray().sorted().joinToString("")))
+            val squares = BoardGenerator().squares()
+            assertEquals(32, squares.count { square -> square != '.' }, "$squares not not contain 32 empty spaces")
+            assertTrue(squares.containsAll(Pieces.WHITE.toList()), "$squares not not contain ${Pieces.WHITE}")
+            assertTrue(squares.containsAll(Pieces.BLACK.toList()), "$squares not not contain ${Pieces.BLACK}")
         }
     }
 

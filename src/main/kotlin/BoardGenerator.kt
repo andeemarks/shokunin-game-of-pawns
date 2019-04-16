@@ -5,16 +5,16 @@ private const val WHITE_PROMOTION_RANK = 0
 private const val BLACK_PROMOTION_RANK = 7
 
 object Pieces {
-
     private const val WHITE_NON_PAWNS = "RNBQKBNR"
     private const val BLACK_NON_PAWNS = "rnbqkbnr"
+
     const val EMPTY_SQUARE = '.'
     const val WHITE_PAWN = 'P'
     const val BLACK_PAWN = 'p'
     const val BLACK_KING = 'k'
     const val WHITE_KING = 'K'
 
-    val EMPTY_SQUARES = Pieces.EMPTY_SQUARE.toString().repeat(32)
+    val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
     val WHITE = WHITE_PAWN.toString().repeat(RANK_WIDTH) + WHITE_NON_PAWNS
     val BLACK = BLACK_PAWN.toString().repeat(RANK_WIDTH) + BLACK_NON_PAWNS
 }
