@@ -24,10 +24,8 @@ class BoardGenerator {
 
     fun squares() = board.flatten()
     fun whitePromotionRank(board: List<List<Char>>) = board[WHITE_PROMOTION_RANK]
-
     fun blackPromotionRank(board: List<List<Char>>) = board[BLACK_PROMOTION_RANK]
     fun blackKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, Pieces.BLACK_KING)
-
     fun whiteKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, Pieces.WHITE_KING)
 
     private fun populate(): List<List<Char>> {
