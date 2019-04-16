@@ -1,5 +1,3 @@
-import kotlin.math.absoluteValue
-
 private const val RANK_WIDTH = 8
 private const val WHITE_PROMOTION_RANK = 0
 private const val BLACK_PROMOTION_RANK = 7
@@ -17,13 +15,6 @@ object Pieces {
     val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
     val WHITE = WHITE_PAWN.toString().repeat(RANK_WIDTH) + WHITE_NON_PAWNS
     val BLACK = BLACK_PAWN.toString().repeat(RANK_WIDTH) + BLACK_NON_PAWNS
-}
-
-class RankAndFile(val rank: Int, val file: Int) {
-    private fun rowDistanceTo(other: RankAndFile) = (this.rank - other.rank).absoluteValue
-    private fun columnDistanceTo(other: RankAndFile) = (this.file - other.file).absoluteValue
-
-    fun isNeighbourOf(other: RankAndFile): Boolean = (this.columnDistanceTo(other) <= 1 && this.rowDistanceTo(other) <= 1)
 }
 
 class BoardGenerator {
