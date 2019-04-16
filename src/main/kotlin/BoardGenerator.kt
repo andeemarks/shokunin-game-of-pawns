@@ -20,8 +20,10 @@ object Pieces {
 }
 
 class RankAndFile(val rank: Int, val file: Int) {
-    fun rowDistanceTo(other: RankAndFile) = (this.rank - other.rank).absoluteValue
-    fun columnDistanceTo(other: RankAndFile) = (this.file - other.file).absoluteValue
+    private fun rowDistanceTo(other: RankAndFile) = (this.rank - other.rank).absoluteValue
+    private fun columnDistanceTo(other: RankAndFile) = (this.file - other.file).absoluteValue
+
+    fun isNeighbourOf(other: RankAndFile): Boolean = (this.columnDistanceTo(other) <= 1 && this.rowDistanceTo(other) <= 1)
 }
 
 class BoardGenerator {
@@ -34,7 +36,6 @@ class BoardGenerator {
     fun blackKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, Pieces.BLACK_KING)
 
     fun whiteKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, Pieces.WHITE_KING)
-    fun areNeighbours(whiteKing: RankAndFile, blackKing: RankAndFile): Boolean = (whiteKing.columnDistanceTo(blackKing) <= 1 && whiteKing.rowDistanceTo(blackKing) <= 1)
 
     private fun populate(): List<List<Char>> {
         var populatedBoard: MutableList<MutableList<Char>> = "${Pieces.WHITE}${Pieces.BLACK}${Pieces.EMPTY_SQUARES}".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
@@ -49,8 +50,8 @@ class BoardGenerator {
         val whiteKingPosition = whiteKingPosition(squares)
         val blackKingPosition = blackKingPosition(squares)
 
-        if (areNeighbours(whiteKingPosition, blackKingPosition)) {
-            val newWhiteKingPosition = emptySquares(squares).filter { square -> !areNeighbours(blackKingPosition, square) }.shuffled().first()
+        if (whiteKingPosition.isNeighbourOf(blackKingPosition)) {
+            val newWhiteKingPosition = emptySquares(squares).filter { square -> !blackKingPosition.isNeighbourOf(square) }.shuffled().first()
             switchWithEmptySquare(squares, newWhiteKingPosition, whiteKingPosition, Pieces.WHITE_KING)
         }
 

@@ -34,6 +34,7 @@ class BoardGeneratorTest {
     fun boardHasNoWhitePawnsInPromotionRank() {
         repeat(TEST_EXECUTION_COUNT) {
             val whitePromotionRank = BoardGenerator().whitePromotionRank(BoardGenerator().board)
+
             assertFalse(whitePromotionRank.contains('P'), "Found white pawn in promotion square: $whitePromotionRank")
         }
     }
@@ -42,6 +43,7 @@ class BoardGeneratorTest {
     fun boardHasNoBlackPawnsInPromotionRank() {
         repeat(TEST_EXECUTION_COUNT) {
             val blackPromotionRank = BoardGenerator().blackPromotionRank(BoardGenerator().board)
+
             assertFalse(blackPromotionRank.contains('p'), "Found black pawn in promotion square: $blackPromotionRank")
         }
     }
@@ -53,7 +55,8 @@ class BoardGeneratorTest {
 
             val whiteKing = BoardGenerator().whiteKingPosition(board)
             val blackKing = BoardGenerator().blackKingPosition(board)
-            assertFalse(BoardGenerator().areNeighbours(whiteKing, blackKing), "Kings are adjacent at $whiteKing and $blackKing")
+
+            assertFalse(whiteKing.isNeighbourOf(blackKing), "Kings are adjacent at $whiteKing and $blackKing")
         }
     }
 
@@ -64,7 +67,7 @@ class BoardGeneratorTest {
         val whiteKing = BoardGenerator().whiteKingPosition(board)
         val blackKing = BoardGenerator().blackKingPosition(board)
 
-        assertFalse(BoardGenerator().areNeighbours(whiteKing, blackKing))
+        assertFalse(whiteKing.isNeighbourOf(blackKing))
     }
 
     @Test
@@ -75,7 +78,7 @@ class BoardGeneratorTest {
         val whiteKing  = BoardGenerator().whiteKingPosition(board)
         val blackKing  = BoardGenerator().blackKingPosition(board)
 
-        assertFalse(BoardGenerator().areNeighbours(whiteKing, blackKing))
+        assertFalse(whiteKing.isNeighbourOf(blackKing))
     }
 
     @Test
@@ -85,7 +88,7 @@ class BoardGeneratorTest {
         val whiteKing = BoardGenerator().whiteKingPosition(board)
         val blackKing = BoardGenerator().blackKingPosition(board)
 
-        assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
+        assertTrue(whiteKing.isNeighbourOf(blackKing))
     }
 
     @Test
@@ -96,7 +99,7 @@ class BoardGeneratorTest {
         val whiteKing = BoardGenerator().whiteKingPosition(board)
         val blackKing = BoardGenerator().blackKingPosition(board)
 
-        assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
+        assertTrue(whiteKing.isNeighbourOf(blackKing))
     }
 
     @Test
@@ -107,6 +110,6 @@ class BoardGeneratorTest {
         val whiteKing = BoardGenerator().whiteKingPosition(board)
         val blackKing = BoardGenerator().blackKingPosition(board)
 
-        assertTrue(BoardGenerator().areNeighbours(whiteKing, blackKing))
+        assertTrue(whiteKing.isNeighbourOf(blackKing))
     }
 }
