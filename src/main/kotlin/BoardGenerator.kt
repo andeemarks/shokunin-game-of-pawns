@@ -12,9 +12,11 @@ object Pieces {
     const val BLACK_KING = 'k'
     const val WHITE_KING = 'K'
 
-    val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
+    private val EMPTY_SQUARES = EMPTY_SQUARE.toString().repeat(32)
     val WHITE = WHITE_PAWN.toString().repeat(RANK_WIDTH) + WHITE_NON_PAWNS
     val BLACK = BLACK_PAWN.toString().repeat(RANK_WIDTH) + BLACK_NON_PAWNS
+
+    val ALL = "${Pieces.WHITE}${Pieces.BLACK}${Pieces.EMPTY_SQUARES}"
 }
 
 class BoardGenerator {
@@ -29,7 +31,7 @@ class BoardGenerator {
     fun whiteKingPosition(board: List<List<Char>>): RankAndFile = findPositionOfPiece(board, Pieces.WHITE_KING)
 
     private fun populate(): List<List<Char>> {
-        var populatedBoard: MutableList<MutableList<Char>> = "${Pieces.WHITE}${Pieces.BLACK}${Pieces.EMPTY_SQUARES}".toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
+        var populatedBoard: MutableList<MutableList<Char>> = Pieces.ALL.toMutableList().shuffled().chunked(RANK_WIDTH).map { row -> row.toMutableList() }.toMutableList()
 
         populatedBoard = preventPromoPawns(populatedBoard)
         populatedBoard = preventNeighbouringKings(populatedBoard)
@@ -43,13 +45,14 @@ class BoardGenerator {
 
         if (whiteKingPosition.isNeighbourOf(blackKingPosition)) {
             val newWhiteKingPosition = emptySquares(squares).filter { square -> !blackKingPosition.isNeighbourOf(square) }.shuffled().first()
-            switchWithEmptySquare(squares, newWhiteKingPosition, whiteKingPosition, Pieces.WHITE_KING)
+            switchWithEmptySquare(squares, newWhiteKingPosition, whiteKingPosition)
         }
 
         return squares
     }
 
-    private fun switchWithEmptySquare(squares: MutableList<MutableList<Char>>, position1: RankAndFile, position2: RankAndFile, position2Occupant: Char) {
+    private fun switchWithEmptySquare(squares: MutableList<MutableList<Char>>, position1: RankAndFile, position2: RankAndFile) {
+        val position2Occupant = squares[position2.rank][position2.file]
         squares[position1.rank][position1.file] = position2Occupant
         squares[position2.rank][position2.file] = Pieces.EMPTY_SQUARE
     }
@@ -65,14 +68,14 @@ class BoardGenerator {
         val pawnsToMove = blackPawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForBlackPawns(squares).shuffled()
 
-        pawnsToMove.forEachIndexed { i: Int, pawn: RankAndFile -> switchWithEmptySquare(squares, availableSpots[i], pawn, Pieces.BLACK_PAWN) }
+        pawnsToMove.forEachIndexed { i: Int, pawn: RankAndFile -> switchWithEmptySquare(squares, availableSpots[i], pawn) }
     }
 
     private fun removeWhitePawnsFromPromotionRank(squares: MutableList<MutableList<Char>>) {
         val pawnsToMove = whitePawnsInPromotionRank(squares)
         val availableSpots = availableSquaresForWhitePawns(squares).shuffled()
 
-        pawnsToMove.forEachIndexed { i: Int, pawn: RankAndFile -> switchWithEmptySquare(squares, availableSpots[i], pawn, Pieces.WHITE_PAWN) }
+        pawnsToMove.forEachIndexed { i: Int, pawn: RankAndFile -> switchWithEmptySquare(squares, availableSpots[i], pawn) }
     }
 
     private fun availableSquaresForWhitePawns(board: List<List<Char>>): List<RankAndFile> = emptySquares(board).filter { square -> square.rank != WHITE_PROMOTION_RANK }
